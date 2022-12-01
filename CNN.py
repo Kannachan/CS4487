@@ -26,7 +26,7 @@ from tensorflow.keras.optimizers import Adam # For Learning Rate
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping # For saving model and stop training model earlier if needed
 from tensorflow.keras.applications import ResNet50 # For using ResNet-50 Model
 
-# Function of generating graph for performance evaluations
+# Function of generating graph for CNN performance evaluations
 def plotPerformance(hist,do,lr,bs):
     plt.plot(hist.history["accuracy"])
     plt.plot(hist.history['val_accuracy'])
@@ -102,9 +102,9 @@ model.add(MaxPooling2D()) # Downsample the input
 model.add(Flatten()) # Flatten the input
 
 # Output
-model.add(Dense(128, activation = 'relu', kernel_initializer = 'he_uniform')) 
+model.add(Dense(128, activation='relu', kernel_initializer='he_uniform')) 
 model.add(Dropout(float(do))) # For preventing overfitting
-model.add(Dense(1, activation = 'sigmoid'))
+model.add(Dense(1, activation='sigmoid'))
 
 # Compiling the model using binary_crossentropy loss function and evalutate accuracy score.
 model.compile(loss='binary_crossentropy',optimizer=Adam(learning_rate=float(lr)), metrics=['accuracy']) 
