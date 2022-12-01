@@ -1,0 +1,18 @@
+1.	Reproducing models with the same result
+Since this project can only be handed in an ipynb file, we cannot upload the finished model directly. However, every time we run Keras, splitting the data set and the weighting inside the models differ. Thus, the result is inconsistent. As a result, we tried to figure out methods to reproduce the same or as similar as we could. 
+
+1.1 Save and load models in TensorFlow
+We initially tried using the checkpoint callback to save and load the model. This function allows us to load the previously saved weights to re-evaluate or continue the existing model's training process. For instance, if the model stops training at epoch 5, we may load the same model and resume training again. 
+
+Example: # ResNet_model = load_model(filepath="ResNet.h5", compile=True)
+
+However, we found that this method does not meet our goal since it still requires a model file to be loaded.
+
+1.2	Loading the same seeds 
+We then installed the package TensorFlow-determinism and make sure the seed of NumPy, python_random and TensorFlow were the same. Most of the time we gain same values for the val_accuracy and a little bit varies for the loss.
+
+2.	 GPU server packages conflict
+During the package installation, since some versions of different packages are in conflict, it results in uninstallation of some sub-packages is required. Since TensorFlow is a large package in which some of its sub-packages are not compatible with the other packages in different versions. We wasted lots of time troubleshooting the package version problem even if the program can be run successfully on other devices or even on the same computer using CPU.
+
+3.	GPU server memory limitations
+It seems that there are limitations for memory usage every day for each account. In the beginning, we kept importing the full dataset for training models with different parameters and testing re-producing the same model until the out-of-memory error appeared. We then separate a small dataset with only 120 images (40 real, 80 fake) and reduce the number of epochs for testing. 
